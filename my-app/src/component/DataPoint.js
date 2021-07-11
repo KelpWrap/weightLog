@@ -15,7 +15,7 @@ export default class DataPoint extends React.Component{
 
     render() {
         const className = [
-            "datapoint",
+            " ",
             this.props.weight,
         ];
         return (
