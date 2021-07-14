@@ -1,10 +1,52 @@
 import React from "react";
 import PropTypes from "prop-types";
-import DataPoint from "./DataPoint";
+import {
+    Chart,
+    ArgumentAxis,
+    ValueAxis,
+    SplineSeries,
+    Legend,
+  } from '@devexpress/dx-react-chart-material-ui';
+import { Paper } from "@material-ui/core";
+import { ValueScale } from "@devexpress/dx-react-chart";
+  
 
 export default class graph extends React.Component{
     static propTypes = {
         dataPoints: PropTypes.array,
         clickHandler: PropTypes.func,
     };
+    constructor(props){
+        super(props);
+        //this.state = {data : props.dataPoints}
+        this.state = {
+            data: [
+            {date: '14-07-2021', weight: 67.7},
+            {date: '13-07-2021', weight: 68.3},
+            {date: '12-07-2021', weight: 68.3},
+            {date: '11-07-2021', weight: 68.6},
+            {date: '10-07-2021', weight: 70.7},
+            {date: '09-07-2021', weight: 73.7},
+            ],
+        };
+
+    }
+
+    render(){
+        const {data: chartData} = this.state;
+        return(
+            <Paper>
+                <Chart
+                    data = {chartData}
+                >
+                <ValueScale name ="date" />
+
+                <ArgumentAxis/>
+                <ValueAxis scaleName="date" showGrid={false} showLine showTicks />
+                <SplineSeries name="Your Weight Journey" valueField="weight" argumentField="date" scaleName="date"/>
+                <Legend/>
+                </Chart>
+            </Paper>
+        );
+    }
 }
