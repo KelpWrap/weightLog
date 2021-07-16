@@ -5,12 +5,11 @@ import AddDatapointButton from './AddDatapointButton'
 
 
 function getModalStyle() {
-  const top = 50;
-  const left = 50;
+  const top = 30;
+  const left = 30;
   return {
     top: `${top}%`,
     left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
   };
 }
 
@@ -25,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function addDataModal {
+export default function AddDataModal() {
     const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
@@ -42,9 +41,8 @@ export default function addDataModal {
       <div style={modalStyle} className={classes.paper}>
         <h2 id="simple-modal-title">Text in a modal</h2>
         <p id="simple-modal-description">
-          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          HiHelloHowuDoin
         </p>
-        <SimpleModal />
       </div>
     );
   
