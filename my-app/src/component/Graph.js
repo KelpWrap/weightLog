@@ -18,18 +18,7 @@ export default class graph extends React.Component{
     };
     constructor(props){
         super(props);
-        //this.state = {data : props.dataPoints}
-        this.state = {
-            data: [
-            {date: '14-07-2021', weight: 67.7},
-            {date: '13-07-2021', weight: 68.3},
-            {date: '12-07-2021', weight: 68.3},
-            {date: '11-07-2021', weight: 68.6},
-            {date: '10-07-2021', weight: 70.7},
-            {date: '09-07-2021', weight: 73.7},
-            ],
-        };
-
+        this.state = {data : props.data};
     }
 
     render(){
@@ -42,7 +31,7 @@ export default class graph extends React.Component{
                 <ValueScale name ="date" />
 
                 <ArgumentAxis/>
-                <ValueAxis scaleName="date" showGrid={false} showLine showTicks />
+                <ValueAxis scaleName="date" showGrid={true} showLine showTicks />
                 <SplineSeries name="Your Weight Journey" valueField="weight" argumentField="date" scaleName="date"/>
                 <Legend/>
                 </Chart>
