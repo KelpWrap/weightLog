@@ -6,9 +6,6 @@ import {DatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import NameForm from './NameForm';
 
-
-
-
 function getModalStyle() {
   const top = 30;
   const left = 30;
@@ -27,6 +24,13 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+      width: '25ch',
+    },
+  },
 }));
 
 export default function AddDataModal() {
@@ -34,6 +38,7 @@ export default function AddDataModal() {
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
     const [selectedDate, handleDateChange] = React.useState(new Date());
+    
   
     const handleOpen = () => {
       setOpen(true);
@@ -41,10 +46,6 @@ export default function AddDataModal() {
   
     const handleClose = () => {
       setOpen(false);
-    };
-
-    const handleSubmit = ()=> {
-      alert('A name was submitted: ' + this.state.value);
     };
   
     const body = (
@@ -56,8 +57,8 @@ export default function AddDataModal() {
                   <DatePicker value={selectedDate} onChange={handleDateChange} />
                 </MuiPickersUtilsProvider>
               </div>
-              <div class="flex-item" id="weight">
-                <NameForm onSubmit = {handleSubmit}/>
+              <div>
+                <NameForm/>
               </div>
           </div>
         </header>
