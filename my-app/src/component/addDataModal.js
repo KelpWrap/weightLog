@@ -2,6 +2,11 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import AddDatapointButton from './AddDatapointButton'
+import {DatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import NameForm from './NameForm';
+
+
 
 
 function getModalStyle() {
@@ -28,6 +33,7 @@ export default function AddDataModal() {
     const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
+    const [selectedDate, handleDateChange] = React.useState(new Date());
   
     const handleOpen = () => {
       setOpen(true);
@@ -36,13 +42,25 @@ export default function AddDataModal() {
     const handleClose = () => {
       setOpen(false);
     };
+
+    const handleSubmit = ()=> {
+      alert('A name was submitted: ' + this.state.value);
+    };
   
     const body = (
       <div style={modalStyle} className={classes.paper}>
-        <h2 id="simple-modal-title">Text in a modal</h2>
-        <p id="simple-modal-description">
-          HiHelloHowuDoin
-        </p>
+        <header id="Add Weight">Add a new Weight Datapoint 
+          <div class="flexbox-container">
+              <div class="flex-item" id="DatePicker">
+                <MuiPickersUtilsProvider utils = {DateFnsUtils}>   
+                  <DatePicker value={selectedDate} onChange={handleDateChange} />
+                </MuiPickersUtilsProvider>
+              </div>
+              <div class="flex-item" id="weight">
+                <NameForm onSubmit = {handleSubmit}/>
+              </div>
+          </div>
+        </header>
       </div>
     );
   
@@ -52,7 +70,7 @@ export default function AddDataModal() {
         <Modal
           open={open}
           onClose={handleClose}
-          aria-labelledby="simple-modal-title"
+          aria-labelledby="flexbox-container"
           aria-describedby="simple-modal-description"
         >
           {body}

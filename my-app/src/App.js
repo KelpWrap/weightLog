@@ -1,7 +1,5 @@
 import './App.css';
-import DateFnsUtils from '@date-io/date-fns';
-import React, {Component, useState} from 'react';
-import {DatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
+import React, {Component} from 'react';
 import Graph from './component/Graph';
 import AddDataModal from './component/addDataModal';
 const Map = require('immutable');
@@ -14,10 +12,7 @@ class App extends Component {
     }
   };
   
-//const [selectedDate, handleDateChange] = useState(new Date());
-//{<MuiPickersUtilsProvider utils = {DateFnsUtils}>   
-//  <DatePicker value={selectedDate} onChange={handleDateChange} />
-//</MuiPickersUtilsProvider>
+
   render (){
     return (<div className="App">
       <AddDataModal/>
