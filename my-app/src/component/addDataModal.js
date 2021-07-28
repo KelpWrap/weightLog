@@ -5,6 +5,7 @@ import AddDatapointButton from './AddDatapointButton'
 import {DatePicker, MuiPickersUtilsProvider} from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import NameForm from './NameForm';
+import { Button } from '@material-ui/core';
 
 function getModalStyle() {
   const top = 30;
@@ -33,11 +34,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AddDataModal() {
+export default function AddDataModal(props) {
     const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
     const [selectedDate, handleDateChange] = React.useState(new Date());
+    const [submittedWeight, handleWeightChange] = React.useState('');
     
   
     const handleOpen = () => {
@@ -47,6 +49,11 @@ export default function AddDataModal() {
     const handleClose = () => {
       setOpen(false);
     };
+
+    const handleSubmit = () => {
+      props.handleSubmit(selectedDate, submittedWeight);
+      setOpen(false);
+    }
   
     const body = (
       <div style={modalStyle} className={classes.paper}>
@@ -58,7 +65,10 @@ export default function AddDataModal() {
                 </MuiPickersUtilsProvider>
               </div>
               <div>
-                <NameForm/>
+                <NameForm value = {submittedWeight} onChange={handleWeightChange}/>
+              </div>
+              <div>
+                <Button variant="contained" color="primary" onClick={handleSubmit}> Submit </Button>
               </div>
           </div>
         </header>
@@ -71,6 +81,7 @@ export default function AddDataModal() {
         <Modal
           open={open}
           onClose={handleClose}
+          onSubmit={handleSubmit}
           aria-labelledby="flexbox-container"
           aria-describedby="simple-modal-description"
         >

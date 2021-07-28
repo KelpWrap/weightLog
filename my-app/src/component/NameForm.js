@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function InputAdornments() {
+export default function InputAdornments(props) {
   const classes = useStyles();
   const [values, setValues] = React.useState({
     amount: '',
@@ -40,15 +40,8 @@ export default function InputAdornments() {
   });
 
   const handleChange = (prop) => (event) => {
+    props.onChange(event.target.value);
     setValues({ ...values, [prop]: event.target.value });
-  };
-
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
   };
 
   return (
