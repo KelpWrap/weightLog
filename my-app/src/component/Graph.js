@@ -1,41 +1,41 @@
 import React from "react";
-import PropTypes from "prop-types";
 import {
     Chart,
     ArgumentAxis,
     ValueAxis,
     SplineSeries,
     Legend,
+    ScatterSeries,
   } from '@devexpress/dx-react-chart-material-ui';
 import { Paper } from "@material-ui/core";
-import { ValueScale } from "@devexpress/dx-react-chart";
+import { ValueScale, ArgumentScale } from "@devexpress/dx-react-chart";
+import { scaleBand } from '@devexpress/dx-chart-core';
+import { scaleLog } from 'd3-scale';
+import { symbolCircle, symbol } from 'd3-shape';
+import { formatPrefix } from 'd3-format';
   
+const Point = props => (
+    <ScatterSeries.Point {...props} d={symbol().size([20 ** 2]).type(symbolCircle)()} />
+);
 
-export default class graph extends React.Component{
-    static propTypes = {
-        dataPoints: PropTypes.array,
-        clickHandler: PropTypes.func,
-    };
-    constructor(props){
-        super(props);
-        this.state = {data : props.data};
-    }
+export default function graph(props){
 
-    render(){
-        const {data: chartData} = this.state;
+        const chartData = props.data;
+        const fakta = [{date: '1', weight:'420'}, {date: '2', weight:'69'}];
+        console.log(chartData);
+        console.log(fakta);
         return(
             <Paper>
                 <Chart
-                    data = {chartData}
+                    data ={chartData}
                 >
-                <ValueScale name ="date" />
-
-                <ArgumentAxis/>
+                <ValueScale name ="date"  />
+                <ArgumentScale factory={scaleBand} type = 'time'/>
+                <ArgumentAxis />
                 <ValueAxis scaleName="date" showGrid={true} showLine showTicks />
-                <SplineSeries name="Your Weight Journey" valueField="weight" argumentField="date" scaleName="date"/>
+                <SplineSeries name="Your Weight Journey" valueField="weight" argumentField="date" scaleName="date" pointComponent={Point}/>
                 <Legend/>
                 </Chart>
             </Paper>
         );
-    }
 }
