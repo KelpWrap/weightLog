@@ -31,15 +31,18 @@ class App extends Component {
     return chartData;
   };
 
+  openDataModal = (event, charContext, config) =>{
+    console.log("a");
+  }
+
   render() {
     const chartData = this.produceChartdata(this.state.datapoints);
     return (
       <div className="App">
         <AddDataModal
-          datapoints={this.state.datapoints}
           handleSubmit={this.addDataHandleSubmit}
         />
-      <Graph data={chartData}/>
+        <Graph data={chartData} onDatapointClick={this.openDataModal}/>
       </div>
     );
   }

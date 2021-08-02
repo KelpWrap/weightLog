@@ -84,7 +84,6 @@ export default function AddDataModal(props) {
       <Modal
         open={open}
         onClose={handleClose}
-        onSubmit={handleSubmit}
         aria-labelledby="flexbox-container"
         aria-describedby="simple-modal-description"
       >
