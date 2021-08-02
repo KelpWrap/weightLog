@@ -49,7 +49,7 @@ export default function SimplePopover(props) {
           horizontal: "center",
         }}
       >
-          {props.datapoints}
+        {props.datapoints}
       </Popover>
     </div>
   );
