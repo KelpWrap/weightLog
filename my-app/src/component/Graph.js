@@ -10,7 +10,7 @@ class Graph extends React.Component {
       chart: {
         events: {
           dataPointSelection:function(event, chartContext, config){
-            props.onDatapointClick(event, chartContext, config);
+            props.onDatapointClick(event, chartContext, config, props.data);
           }
         }
       },

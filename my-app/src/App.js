@@ -1,7 +1,8 @@
 import "./App.css";
 import React, { Component } from "react";
 import Graph from "./component/Graph";
-import AddDataModal from "./component/addDataModal";
+import AddDataModal from "./component/AddDataModal";
+import AddWeightBody from "./component/AddWeightBody";
 const { Map } = require("immutable");
 
 class App extends Component {
@@ -17,7 +18,7 @@ class App extends Component {
   };
 
   addDataHandleSubmit = (selectedDate, submittedWeight) => {
-    const updatedMap = this.state.datapoints.set(selectedDate, submittedWeight);
+    const updatedMap = this.state.datapoints.set(selectedDate.toDateString(), submittedWeight);
     this.updateMap(updatedMap);
     return updatedMap;
   };
@@ -31,8 +32,12 @@ class App extends Component {
     return chartData;
   };
 
-  openDataModal = (event, charContext, config) =>{
-    console.log("a");
+  openDataModal = (event, charContext, config, datapoints) =>{
+    const selectedDate = new Date(datapoints[config.dataPointIndex].toDateString());
+    <AddDataModal 
+      handleSubmit = {this.handleSubmit}
+      selectedDate = {selectedDate}
+       />
   }
 
   render() {
