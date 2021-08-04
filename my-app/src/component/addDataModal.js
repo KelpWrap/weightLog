@@ -4,33 +4,38 @@ import AddDatapointButton from "./AddDatapointButton";
 import AddWeightBody from "./AddWeightBody";
 
 export default function AddDataModal(props) {
-  const [open, setOpen] = React.useState(props.isOpen);
   const [selectedDate, handleDateChange] = React.useState(new Date());
   const [submittedWeight, handleWeightChange] = React.useState("");
 
   const handleOpen = () => {
-    setOpen(true);
+    props.setOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    props.setOpen(false);
   };
 
   const handleSubmit = () => {
     props.handleSubmit(selectedDate, parseInt(submittedWeight));
-    setOpen(false);
+    props.setOpen(false);
   };
+
+  const handleChange = () => {
+    props.handleSubmit(props.selectedDate, parseInt(submittedWeight));
+    props.setOpen(false);
+  };
+
   var body = {};
-  if (props.selectedDate !== "undefined"){
+  if (props.isDateFixed) {
     body = (
       <AddWeightBody
         selectedDate={props.selectedDate}
         submittedWeight={submittedWeight}
         handleWeightChange={handleWeightChange}
-        handleSubmit={handleSubmit}
+        handleSubmit={handleChange}
       />
     );
-  }else {
+  } else {
     body = (
       <AddWeightBody
         selectedDate={selectedDate}
@@ -42,12 +47,11 @@ export default function AddDataModal(props) {
     );
   }
 
-
   return (
     <div>
       <AddDatapointButton onClick={handleOpen} />
       <Modal
-        open={open}
+        open={props.openModal}
         onClose={handleClose}
         aria-labelledby="flexbox-container"
         aria-describedby="simple-modal-description"

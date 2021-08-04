@@ -10,16 +10,22 @@ class App extends Component {
     super();
     this.state = {
       datapoints: Map(),
+      isDateFixed: false,
+      fixedDate: new Date(),
+      openModal: false,
     };
   }
 
-  updateMap = (updatedMap) => {
-    this.setState({ datapoints: updatedMap });
+  setOpenModal = (bool) => {
+    this.setState({openModal: bool})
   };
 
   addDataHandleSubmit = (selectedDate, submittedWeight) => {
-    const updatedMap = this.state.datapoints.set(selectedDate.toDateString(), submittedWeight);
-    this.updateMap(updatedMap);
+    const updatedMap = this.state.datapoints.set(
+      selectedDate.toDateString(),
+      submittedWeight
+    );
+    this.setState({datapoints: updatedMap, isDateFixed: false, openModal: false})
     return updatedMap;
   };
 
@@ -32,13 +38,16 @@ class App extends Component {
     return chartData;
   };
 
-  openDataModal = (event, charContext, config, datapoints) =>{
-    const selectedDate = new Date(datapoints[config.dataPointIndex].toDateString());
-    <AddDataModal 
-      handleSubmit = {this.handleSubmit}
-      selectedDate = {selectedDate}
-       />
-  }
+  openDataModal = (event, charContext, config, datapoints) => {
+    const selectedDate = new Date(
+      datapoints[config.dataPointIndex].x
+    ).toDateString();
+    this.setState({
+      openModal: true,
+      isDateFixed: true,
+      fixedDate: selectedDate,
+    });
+  };
 
   render() {
     const chartData = this.produceChartdata(this.state.datapoints);
@@ -46,8 +55,12 @@ class App extends Component {
       <div className="App">
         <AddDataModal
           handleSubmit={this.addDataHandleSubmit}
+          openModal={this.state.openModal}
+          isDateFixed={this.state.isDateFixed}
+          fixedDate={this.state.fixedDate}
+          setOpen={this.setOpenModal}
         />
-        <Graph data={chartData} onDatapointClick={this.openDataModal}/>
+        <Graph data={chartData} onDatapointClick={this.openDataModal} />
       </div>
     );
   }

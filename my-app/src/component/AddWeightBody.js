@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 import NameForm from "./NameForm";
-import {Button} from "@material-ui/core";
+import { Button } from "@material-ui/core";
 
 function getModalStyle() {
   const top = 30;
@@ -40,10 +40,10 @@ export default function AddWeightBody(props) {
   );
 
   const handleSubmit = () => {
-    props.addDataHandleSubmit(props.selectedDate, parseInt(submittedWeight));
+    props.handleSubmit(props.selectedDate, parseInt(submittedWeight));
   };
 
-  if (props.handleDateChange === "function") {
+  if (typeof props.handleDateChange === "function") {
     return (
       <div style={modalStyle} className={classes.paper}>
         <header id="Add Weight">
@@ -85,10 +85,7 @@ export default function AddWeightBody(props) {
           <div class="flexbox-container">
             <div class="flex-item" id="DatePicker">
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                <DatePicker
-                  value={props.selectedDate}
-                  disabled={true}
-                />
+                <DatePicker value={props.selectedDate} disabled={true} />
               </MuiPickersUtilsProvider>
             </div>
             <div>
