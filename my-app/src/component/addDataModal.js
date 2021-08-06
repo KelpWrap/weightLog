@@ -3,6 +3,8 @@ import Modal from "@material-ui/core/Modal";
 import AddDatapointButton from "./AddDatapointButton";
 import AddWeightBody from "./AddWeightBody";
 
+/*Modal for adding data. Consists of a button
+*/
 export default function AddDataModal(props) {
   const [selectedDate, handleDateChange] = React.useState(new Date());
   const [submittedWeight, handleWeightChange] = React.useState("");
@@ -16,23 +18,32 @@ export default function AddDataModal(props) {
   };
 
   const handleSubmit = () => {
-    props.handleSubmit(selectedDate, parseInt(submittedWeight));
-    props.setOpen(false);
+    //dates are set to midnight before submitting
+    const date = selectedDate;
+    date.setHours(0,0,0,0);
+    const parsedWeight = parseInt(submittedWeight);
+    if (!isNaN(parsedWeight)){
+      props.handleSubmit(date, parseInt(submittedWeight));
+    }
+
   };
 
-  const handleChange = () => {
-    props.handleSubmit(props.selectedDate, parseInt(submittedWeight));
-    props.setOpen(false);
-  };
+  const handleDelete = () => {
+    props.handleDelete(props.fixedDate);
+  }
+
+  
 
   var body = {};
+  //if the modal is opened via datapoint click the date will be fixed and a different body will be loaded
   if (props.isDateFixed) {
     body = (
       <AddWeightBody
-        selectedDate={props.selectedDate}
+        selectedDate={props.fixedDate}
         submittedWeight={submittedWeight}
         handleWeightChange={handleWeightChange}
-        handleSubmit={handleChange}
+        handleSubmit={handleSubmit}
+        handleDelete={handleDelete}
       />
     );
   } else {

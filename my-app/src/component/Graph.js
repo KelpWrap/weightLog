@@ -1,47 +1,48 @@
 import React from "react";
 import Charts from "react-apexcharts";
 
-class Graph extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      options: {
-        xaxis: {
-          type: "datetime",
-        },
-      },
-      series: [
-        {
-          name: "series-1",
-          data: props.data,
-        },
-      ],
-      chart: {
-        events: {
-          dataPointSelection: function (event, chartContext, config) {
-            props.onDatapointClick(event, chartContext, config, props.data);
-          },
-        },
-      },
-    };
-  }
-  render() {
-    return (
-      <div className="app">
-        <div className="row">
-          <Charts
-            options={this.state.options}
-            series={this.state.series}
-            type="line"
-            width="60%"
-          />
-        </div>
-      </div>
-    );
-  }
-}
+export default function Graph(props) {
+  const series = [
+    {
+      name: "Your weight",
+      data: props.data,
+    },
+  ];
+  const options = {
+    xaxis: {
+      type: "category",
+      tickPlacement: 'on',
+    },
+    tooltip: {
+      shared: false,
+      intersect: true,
+    },
+    markers:{
+      size: 7,
+      strokeOpacity: 0.9,
 
-export default function renderGraph(props) {
-  var chart = new Graph(props);
-  return chart.render();
+    },
+    chart: {
+      events: {
+        dataPointSelection: function (event, chartContext, config) {
+          props.onDatapointClick(event, chartContext, config);
+        },
+      },
+    },
+  };
+
+  return (
+    <div style={{
+      margin: 'auto',
+      maxWidth: '80%',
+      
+    }}>
+        <Charts
+          series={series}
+          options={options} 
+          type="line"
+          height='480%'
+        />
+    </div>
+  );
 }

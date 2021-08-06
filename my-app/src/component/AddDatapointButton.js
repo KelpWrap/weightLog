@@ -2,14 +2,15 @@ import React from "react";
 import { IconButton } from "@material-ui/core/";
 import Add from "@material-ui/icons/Add";
 
-class App extends React.Component {
-  render() {
+export default function App (props)  {
     return (
-      <IconButton aria-label="addButton" onClick={() => this.props.onClick()}>
-        <Add />
-      </IconButton>
+      <div style={{
+        margin:'auto'
+      }}>
+        <IconButton aria-label="addButton" onClick={() => props.onClick()} color="primary">
+          <Add />
+        </IconButton>
+      </div>
     );
-  }
 }
 
-export default App;
